@@ -27,12 +27,7 @@ int main()
         sf::Vertex(sf::Vector2f(30,200))
     };
     shape.setFillColor(sf::Color::Green);
-    Matrix m1(5,5);
-    Matrix m2 = m1+m1;
-    //Matrix m2 = m1 + m1;
-    //Matrix m3 = m2;
-    //cout << m2.to_clear << endl;
-   // cout << m2 ;
+
     vector<figura*> figury = get_base();
     double x1,y1,x2,y2,z1,z2,s1,s2,ct;
     int* p;

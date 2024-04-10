@@ -14,13 +14,10 @@ Matrix::Matrix(int n,int m){
 	}
 }
 Matrix::~Matrix(){
-	if(to_clear)
-	{
-		for (int i = 0; i < n; i++) {
-			free(pola[i]);
-		}
-		free(pola);
+	for (int i = 0; i < n; i++) {
+		free(pola[i]);
 	}
+	free(pola);
 }
 
 int Matrix::get_n() const
@@ -31,66 +28,6 @@ int Matrix::get_n() const
 auto Matrix::get_m() const -> int
 {
 	return m;
-}
-
-Matrix operator+(const Matrix &A, const Matrix &B)
-{
-	if(A.get_n()!= B.get_n() && A.get_m() != B.get_m())
-	{
-		Matrix zero(0,0);
-		return zero;
-		//return {0,0};
-	}
-	Matrix matrix {A.get_n(),B.get_m()};
-	for(int i = 0 ; i< A.get_n() ; i++)
-	{
-		for (int j = 0 ; j < A.get_m() ; j++)
-		{
-			matrix[i][j] = A[i][j] + B[i][j];
-		}
-	}
-	matrix.prepare_for_copy();
-	return matrix;
-}
-
-Matrix operator-(const Matrix &A, const Matrix &B)
-{
-	if(A.get_n()!= B.get_n() && A.get_m() != B.get_m())
-	{
-		return {0,0};
-	}
-	Matrix matrix {A.get_n(),B.get_m()};
-	for(int i = 0 ; i< A.get_n() ; i++)
-	{
-		for (int j = 0 ; j < A.get_m() ; j++)
-		{
-			matrix[i][j] = A[i][j] - B[i][j];
-		}
-	}
-	matrix.prepare_for_copy();
-	return matrix;
-}
-
-Matrix operator*(const Matrix &A, const Matrix &B)
-{
-	if(A.get_m() != B.get_n())
-	{
-		return {0,0};
-	}
-	Matrix matrix {A.get_n(),B.get_m()};
-	for(int i = 0 ; i< A.get_n() ; i++)
-	{
-		for (int j = 0 ; j < B.get_m() ; j++)
-		{
-			for(int k =0 ; k < A.get_m();k++)
-			{
-				matrix[i][j] += A[i][k] * B[k][j];
-			}
-			
-		}
-	}
-	matrix.prepare_for_copy();
-	return matrix;
 }
 
 void Matrix::operator+=(const Matrix &B) const
@@ -151,19 +88,6 @@ void Matrix::operator*=(const Matrix &B)
 	}
 }
 
-Matrix& Matrix::operator=( Matrix& A) const
-{
-	A.prepare_for_copy();
-	std::cout << this->to_clear << " sss\n";
-	return A;
-}
-
-Matrix& Matrix::operator=(const Matrix& A)
-{
-	
-	std::cout << this->to_clear << " ss#@s\n";
-	return *this;
-}
 
 void Matrix::multiplication(const Matrix& A, const Matrix& B)
 {
@@ -184,6 +108,36 @@ void Matrix::multiplication(const Matrix& A, const Matrix& B)
 		}
 	}
 	
+}
+
+void Matrix::addition(const Matrix& A, const Matrix& B)
+{
+	if(A.get_m() != B.get_m()&& A.get_n() != B.get_n() && this->get_n() != A.get_n()&&this->get_m() != B.get_m())
+	{
+		return ;
+	}
+	for(int i = 0 ; i< A.get_n() ; i++)
+	{
+		for (int j = 0 ; j < B.get_m() ; j++)
+		{
+			this->pola[i][j] = A[i][j] + B[i][j];
+		}
+	}
+}
+
+void Matrix::subtraction(const Matrix& A, const Matrix& B)
+{
+	if(A.get_m() != B.get_m()&& A.get_n() != B.get_n() && this->get_n() != A.get_n()&&this->get_m() != B.get_m())
+	{
+		return ;
+	}
+	for(int i = 0 ; i< A.get_n() ; i++)
+	{
+		for (int j = 0 ; j < B.get_m() ; j++)
+		{
+			this->pola[i][j] = A[i][j] - B[i][j];
+		}
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, Matrix const& A)
@@ -222,15 +176,6 @@ void Matrix::free_pola(int n , int m)
 	}
 }
 
-void Matrix::prepare_for_copy()
-{
-	this->to_clear =false;
-}
-
-void Matrix::prepare_for_delete()
-{
-	this->to_clear =true;
-}
 
 void Matrix::set_matrix_4_to(MatrixType type, double val)
 {
@@ -339,3 +284,91 @@ void Matrix::normalize()
 		pola[i][0]/= nor;
 	}
 }
+
+// niepotrzeby kod rodzacy problemyu
+/*
+Matrix operator+(const Matrix &A, const Matrix &B)
+{
+	if(A.get_n()!= B.get_n() && A.get_m() != B.get_m())
+	{
+		Matrix zero(0,0);
+		return zero;
+		//return {0,0};
+	}
+	Matrix matrix {A.get_n(),B.get_m()};
+	for(int i = 0 ; i< A.get_n() ; i++)
+	{
+		for (int j = 0 ; j < A.get_m() ; j++)
+		{
+			matrix[i][j] = A[i][j] + B[i][j];
+		}
+	}
+	matrix.prepare_for_copy();
+	return matrix;
+}
+
+Matrix operator-(const Matrix &A, const Matrix &B)
+{
+	if(A.get_n()!= B.get_n() && A.get_m() != B.get_m())
+	{
+		return {0,0};
+	}
+	Matrix matrix {A.get_n(),B.get_m()};
+	for(int i = 0 ; i< A.get_n() ; i++)
+	{
+		for (int j = 0 ; j < A.get_m() ; j++)
+		{
+			matrix[i][j] = A[i][j] - B[i][j];
+		}
+	}
+	matrix.prepare_for_copy();
+	return matrix;
+}
+
+Matrix operator*(const Matrix &A, const Matrix &B)
+{
+	if(A.get_m() != B.get_n())
+	{
+		return {0,0};
+	}
+	Matrix matrix {A.get_n(),B.get_m()};
+	for(int i = 0 ; i< A.get_n() ; i++)
+	{
+		for (int j = 0 ; j < B.get_m() ; j++)
+		{
+			for(int k =0 ; k < A.get_m();k++)
+			{
+				matrix[i][j] += A[i][k] * B[k][j];
+			}
+			
+		}
+	}
+	matrix.prepare_for_copy();
+	return matrix;
+}
+*/
+
+/*
+Matrix& Matrix::operator=( Matrix& A) const
+{
+	A.prepare_for_copy();
+	std::cout << this->to_clear << " sss\n";
+	return A;
+}
+
+Matrix& Matrix::operator=(const Matrix& A)
+{
+	
+	std::cout << this->to_clear << " ss#@s\n";
+	return *this;
+}*/
+/*
+void Matrix::prepare_for_copy()
+{
+	this->to_clear =false;
+}
+
+void Matrix::prepare_for_delete()
+{
+	this->to_clear =true;
+}*/
