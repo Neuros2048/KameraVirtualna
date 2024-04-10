@@ -27,7 +27,12 @@ int main()
         sf::Vertex(sf::Vector2f(30,200))
     };
     shape.setFillColor(sf::Color::Green);
-
+    sf::ConvexShape czworoscian(4);
+    czworoscian.setPoint(0,sf::Vector2f(30,30));
+    czworoscian.setPoint(1,sf::Vector2f(30,80));
+    czworoscian.setPoint(3,sf::Vector2f(90,30));
+    czworoscian.setPoint(2,sf::Vector2f(70,70));
+    czworoscian.setFillColor(sf::Color::Blue);
     vector<figura*> figury = get_base();
     double x1,y1,x2,y2,z1,z2,s1,s2,ct;
     int* p;
@@ -198,7 +203,7 @@ int main()
             }
         }
         
-       
+        window.draw(czworoscian);
         window.display();
        
         sf::sleep(sf::microseconds(1000));
