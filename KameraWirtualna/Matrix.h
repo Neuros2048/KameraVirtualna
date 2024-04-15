@@ -30,6 +30,7 @@ public:
 	void multiplication(const Matrix &A, const Matrix &B);
 	void addition(const Matrix &A, const Matrix &B);
 	void subtraction(const Matrix &A, const Matrix &B);
+	void dot_prodact(const Matrix &A, const Matrix &B);
 	friend std::ostream &operator<<(std::ostream &os, Matrix const &A);
 	void set_matrix_4_to(MatrixType type,double val);
 	void swap(Matrix& A);

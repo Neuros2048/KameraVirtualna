@@ -140,6 +140,18 @@ void Matrix::subtraction(const Matrix& A, const Matrix& B)
 	}
 }
 
+void Matrix::dot_prodact(const Matrix& A, const Matrix& B)
+{
+	if( !(A.get_m() == 1 && B.get_m()  == 1 && A.get_n() == B.get_n()) )
+	{
+		return;
+	}
+	for(int i =0 ; i< A.get_n(); i++)
+	{
+		this->pola[i][0] = A[i][0] * B[i][0];
+	}
+}
+
 std::ostream& operator<<(std::ostream& os, Matrix const& A)
 {
 	for(int i =0 ; i< A.get_n() ; i++)

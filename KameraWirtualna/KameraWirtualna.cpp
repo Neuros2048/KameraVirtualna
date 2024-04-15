@@ -22,114 +22,6 @@ int height = 800;
 struct Point {
     double x, y, z;
 };
-struct Wall {
-    Point point1, point2, point3, point4;
-};
-bool isPointBehindWall(Point p1, Point p2, const Wall& wall) {
-
-    for (int i = 0; i < 4; ++i) {
-        Point p3, p4;
-   
-        switch (i) {
-        case 0:
-            p3 = wall.point1;
-            p4 = wall.point2;
-            break;
-        case 1:
-            p3 = wall.point2;
-            p4 = wall.point3;
-            break;
-        case 2:
-            p3 = wall.point3;
-            p4 = wall.point4;
-            break;
-        case 3:
-            p3 = wall.point4;
-            p4 = wall.point1;
-            break;
-        }
-        
-     
-        double normal_x = (p4.y - p3.y) * (p1.z - p3.z) - (p4.z - p3.z) * (p1.y - p3.y);
-        double normal_y = (p4.z - p3.z) * (p1.x - p3.x) - (p4.x - p3.x) * (p1.z - p3.z);
-        double normal_z = (p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x);
-
-
-        double vector_x = p1.x - p2.x;
-        double vector_y = p1.y - p2.y;
-        double vector_z = p1.z - p2.z;
-        
-        if (normal_x * vector_x + normal_y * vector_y + normal_z * vector_z > 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
-void calculateNormal(const Point& p1, const Point& p2, const Point& p3, double& a, double& b, double& c) {
-
-    double v1x = p2.x - p1.x;
-    double v1y = p2.y - p1.y;
-    double v1z = p2.z - p1.z;
-
-    double v2x = p3.x - p1.x;
-    double v2y = p3.y - p1.y;
-    double v2z = p3.z - p1.z;
-
-    a = v1y * v2z - v1z * v2y;
-    b = v1z * v2x - v1x * v2z;
-    c = v1x * v2y - v1y * v2x;
-
-
-    double length = sqrt(a * a + b * b + c * c);
-    if (length != 0) {
-        a /= length;
-        b /= length;
-        c /= length;
-    }
-}
-
-double planeEquation(double a, double b, double c, const Point& point) {
-    double d = -(a * point.x + b * point.y + c * point.z); 
-    return d/ sqrt(a * a + b * b + c * c);
-    
-}
-
-wieszcholek * maketree(wieszcholek * parent, wieszcholek x)
-{
-    wieszcholek* nowy;
-    if(parent == nullptr)
-    {
-        wieszcholek* nowy = new wieszcholek;
-        nowy->pt = x.pt;
-        nowy->wall = x.wall;
-        nowy->color = x.color;
-        return nowy;
-    }
-    double z1max = 0,z2max = 0,z1min = INFINITY ,z2min =INFINITY;
-    Point p1 = {parent->pt[parent->wall[0]][0], parent->pt[parent->wall[0]][1], parent->pt[parent->wall[0]][2]};
-    Point p2 = {parent->pt[parent->wall[1]][0], parent->pt[parent->wall[1]][1], parent->pt[parent->wall[1]][2]};
-    Point p3 = {parent->pt[parent->wall[2]][0], parent->pt[parent->wall[2]][1], parent->pt[parent->wall[2]][2]};
-    Point p4 = {parent->pt[parent->wall[3]][0], parent->pt[parent->wall[3]][1], parent->pt[parent->wall[3]][2]};
-    Wall ww {p1,p2,p3,p4};
-    double a, b, c,d,t;
-    calculateNormal(p1, p2, p3, a, b, c);
-    d = planeEquation(a, b, c, p4);
-    
-    t = ((x.pt[x.wall[0]][0]+x.pt[x.wall[1]][0]+x.pt[x.wall[2]][0]+x.pt[x.wall[3]][0])/4*a + (x.pt[x.wall[0]][1]+x.pt[x.wall[1]][1]+x.pt[x.wall[2]][1]+x.pt[x.wall[3]][1])/4* b+(x.pt[x.wall[0]][2]+x.pt[x.wall[1]][2]+x.pt[x.wall[2]][2]+x.pt[x.wall[3]][2])/4*c )/-d;
-    
-    
-    if(t>=1)
-    {
-        parent->left =  maketree(parent->left, x);
-    }else
-    {
-        parent->right =  maketree(parent->right, x);
-    }
-    return parent;
-};
-
-
 int main()
 {
     
@@ -262,72 +154,15 @@ int main()
             angle = angle<=89? angle: 89; 
             //scale+= 1;
         }
-        for(auto f : figury)
-        {
-            for(int i =0 ; i < f->numberOfPoints();i++ )
-            {
-                p1 = f->getPoints(i);
-                p2 = f->getPointsTransformed(i);
-                vect[0][0] = p1[0];
-                vect[1][0] = p1[1];
-                vect[2][0] = p1[2];
-                vect[3][0] = 1;
-             
-                result.multiplication(revers_transformation,vect);
-                result.normalize();
-               
-                
-                p2[0] = result[0][0];
-                p2[1] = result[1][0];
-                p2[2] = result[2][0];
-            }
-        }
-        root = nullptr;
-        pair< wieszcholek*,bool> curr;
-        stack<pair< wieszcholek*,bool>> sw;
+        sf::Vertex point(sf::Vector2f(20, 20), sf::Color::Blue);
+        sf::CircleShape shape(50);
+        shape.setPosition(sf::Vector2f(100, 100));
+        shape.setFillColor(sf::Color(150, 50, 250));
+
+        //shape.setOutlineThickness(10);
         
-        for(int i = 0 ; i < walls.size();i++)
-        {
-            root = maketree(root, {pointw[i],walls[i],colors[i]});
-        }
-        window.clear();
-        sw.push({root,false});
-        while(!sw.empty())
-        {
-            curr = sw.top();
-            sw.pop();
-            if(!curr.second)
-            {
-                sw.push({curr.first,true});
-                if(curr.first->left!= nullptr) sw.push({curr.first->left,false});
-            }else
-            {
-                if(curr.first->right!= nullptr) sw.push({curr.first->right,false});
-                p = curr.first->wall;// f->getWall(i);
-                p1 = curr.first->pt[p[0]];//f->getPointsTransformed(p[0]);
-                p2 = curr.first->pt[p[1]];
-                p3 = curr.first->pt[p[2]];
-                p4 = curr.first->pt[p[3]];
-            
-                if(p1[2] >= 0 && p2[2] >=0 && p3[2] >=0 && p4[2] >=0)
-                {
-                    ct = cos(angle*M_PI/180)/sin(angle*M_PI/180) * scale;
-                    s1 =  ct / p1[2];
-                    s2 =  ct / p2[2];
-                    s3 =  ct / p3[2];
-                    s4 =  ct / p4[2];
-                    
-                    czworoscian.setPoint(0,sf::Vector2f(s1*p1[0] + width/2,-s1*p1[1] + height/2));
-                    czworoscian.setPoint(1,sf::Vector2f(s2*p2[0] + width/2,-s2*p2[1] + height/2));
-                    czworoscian.setPoint(2,sf::Vector2f(s3*p3[0] + width/2,-s3*p3[1] + height/2));
-                    czworoscian.setPoint(3,sf::Vector2f(s4*p4[0] + width/2,-s4*p4[1] + height/2));
-                    czworoscian.setFillColor(curr.first->color);
-                   
-                    window.draw(czworoscian);
-                }
-            }
-        }
-        
+        window.draw(&point, 1, sf::Points);
+        window.draw(shape);
         
         window.display();
         sf::sleep(sf::microseconds(1000));
