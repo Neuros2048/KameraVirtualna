@@ -121,13 +121,7 @@ wieszcholek * maketree(wieszcholek * parent, wieszcholek x)
     
     t = ((x.pt[x.wall[0]][0]+x.pt[x.wall[1]][0]+x.pt[x.wall[2]][0]+x.pt[x.wall[3]][0])/4*a + (x.pt[x.wall[0]][1]+x.pt[x.wall[1]][1]+x.pt[x.wall[2]][1]+x.pt[x.wall[3]][1])/4* b+(x.pt[x.wall[0]][2]+x.pt[x.wall[1]][2]+x.pt[x.wall[2]][2]+x.pt[x.wall[3]][2])/4*c )/-d;
     
-    for(int i = 0 ; i < 4;i++)
-    {
-        z1max = max(z1max,  parent->pt[ parent->wall[i] ][2]);
-        z2max = max(z2max,  x.pt[ x.wall[i] ][2]);
-        z1min = min(z1min,  parent->pt[ parent->wall[i] ][2]);
-        z2min = min(z2min,  x.pt[ x.wall[i] ][2]);
-    }
+    
     
     if(t>=1)
     {
