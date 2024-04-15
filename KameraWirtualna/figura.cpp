@@ -52,6 +52,17 @@ void figura::add_lines(int** lines, int n)
     nLines = n;
 }
 
+void figura::add_walls(int** walls, int n)
+{
+    this->walls = walls;
+    nWalls = n;
+}
+
+void figura::addColors(sf::Color* colors)
+{
+    this->colors = colors;
+}
+
 void figura::transform(int point, double x, double y, double z)
 {
     points_transform[point][1] = x;
@@ -69,6 +80,11 @@ int figura::numberOfLines()
     return nLines;
 }
 
+int figura::numberOfWalls()
+{
+    return nWalls;
+}
+
 double* figura::operator[](int i) const
 {
     return points_transform[i];
@@ -79,9 +95,24 @@ int* figura::getLine(int i)
     return lines[i];
 }
 
+int* figura::getWall(int i)
+{
+    return walls[i];
+}
+
+sf::Color figura::getWallCollor(int i)
+{
+    return colors[i];
+}
+
 double* figura::getPoints(int i)
 {
     return points[i];
+}
+
+double** figura::getAllPoint()
+{
+    return points_transform;
 }
 
 double* figura::getPointsTransformed(int i)
@@ -94,8 +125,10 @@ struct positions
 {
     double ** points = nullptr;
     int ** lines = nullptr;
+    int ** walls= nullptr;
     int n_points;
     int n_lines;
+    int n_walls;
 };
 
 
@@ -105,8 +138,10 @@ positions create_prostopadloscian(double x,double y,double z,double h)
     positions p;
     p.points = static_cast<double**>(malloc(sizeof(double*) * 8));
     p.lines = static_cast<int**>(malloc(sizeof(int*) * 12));
+    p.walls = static_cast<int**>(malloc(sizeof(int*) * 6));
     p.n_points = 8;
     p.n_lines = 12;
+    p.n_walls = 6;
     for(int i = 0 ;i < 8 ; i++)
     {
         p.points[i] = static_cast<double*>(malloc(sizeof(double) * 3));
@@ -114,6 +149,10 @@ positions create_prostopadloscian(double x,double y,double z,double h)
     for(int i = 0 ;i < 12 ; i++)
     {
         p.lines[i] = static_cast<int*>(malloc(sizeof(int) * 2));
+    }
+    for(int i = 0 ;i < 6 ; i++)
+    {
+        p.walls[i] = static_cast<int*>(malloc(sizeof(int) * 4));
     }
     for(int i = 0 ;i < 4 ; i++)
     {
@@ -126,6 +165,17 @@ positions create_prostopadloscian(double x,double y,double z,double h)
         p.lines[i+8][0] = i + 4 ;
         p.lines[i+8][1] = (i+1)%4+ 4;
     }
+   
+    for(int i =0 ;i < 4 ; i++)
+    {
+        p.walls[0][i] = i;
+        p.walls[1][i] = i > 1 ? 7-i: i;
+        p.walls[2][i] = i > 1 ? 8-i: i+1;
+        p.walls[3][i] = i > 1 ? 9-i: i+2;
+        p.walls[4][i] = i > 1 ? 3*(i%2)+4: (i+3)%4;
+        p.walls[5][i] = i+4;
+    }
+
     p.points[0][0] = x;
     p.points[0][1] = y;
     p.points[0][2] = z;
@@ -216,21 +266,39 @@ positions create_dodecahedron(double x,double y,double z,double h)
 std::vector<figura*> get_base()
 {
     std::vector<figura*> res(5);
+    sf::Color* color = new sf::Color[6];
+    color[0] = sf::Color::Blue;
+    color[1] = sf::Color::Red;
+    color[2] = sf::Color::Green;
+    color[3] = sf::Color::Yellow;
+    color[4] = sf::Color::Magenta;
+    color[5] = sf::Color::White;
     positions p = create_prostopadloscian(90,0,400,80); 
     res[0] = new figura(p.points,p.n_points);
     res[0]->add_lines(p.lines,p.n_lines);
+    res[0]->add_walls(p.walls,p.n_walls);
+    res[0]->addColors(color);
     p = create_prostopadloscian(-30,0,400,80); 
     res[1] = new figura(p.points,p.n_points);
     res[1]->add_lines(p.lines,p.n_lines);
+    res[1]->add_walls(p.walls,p.n_walls);
+    res[1]->addColors(color);
     p = create_prostopadloscian(90,0,800,80); 
     res[2] = new figura(p.points,p.n_points);
     res[2]->add_lines(p.lines,p.n_lines);
+    res[2]->add_walls(p.walls,p.n_walls);
+    res[2]->addColors(color);
     p = create_prostopadloscian(-30,0,800,80); 
     res[3] = new figura(p.points,p.n_points);
     res[3]->add_lines(p.lines,p.n_lines);
-    p =create_dodecahedron(300,0,400,80);
+    res[3]->add_walls(p.walls,p.n_walls);
+    res[3]->addColors(color);
+    p =create_prostopadloscian(300,0,400,80);
     res[4] = new figura(p.points,p.n_points);
     res[4]->add_lines(p.lines,p.n_lines);
+    res[4]->add_walls(p.walls,p.n_walls);
+    res[4]->addColors(color);
+    
     return res;
 }
 
