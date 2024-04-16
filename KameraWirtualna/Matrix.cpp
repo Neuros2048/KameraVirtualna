@@ -32,7 +32,7 @@ auto Matrix::get_m() const -> int
 
 void Matrix::operator+=(const Matrix &B) const
 {
-	if(n!= B.get_n() && m != B.get_m())
+	if(n!= B.get_n() || m != B.get_m())
 	{
 		return ;
 	}
@@ -47,7 +47,7 @@ void Matrix::operator+=(const Matrix &B) const
 
 void Matrix::operator-=(const Matrix &B) const
 {
-	if(n!= B.get_n() && m != B.get_m())
+	if(n!= B.get_n() || m != B.get_m())
 	{
 		return ;
 	}
@@ -91,7 +91,7 @@ void Matrix::operator*=(const Matrix &B)
 
 void Matrix::multiplication(const Matrix& A, const Matrix& B)
 {
-	if(A.get_m() != B.get_n() && this->get_n() != A.get_n()&&this->get_m() != B.get_m())
+	if(A.get_m() != B.get_n() || this->get_n() != A.get_n() || this->get_m() != B.get_m())
 	{
 		return ;
 	}
@@ -112,7 +112,7 @@ void Matrix::multiplication(const Matrix& A, const Matrix& B)
 
 void Matrix::addition(const Matrix& A, const Matrix& B)
 {
-	if(A.get_m() != B.get_m()&& A.get_n() != B.get_n() && this->get_n() != A.get_n()&&this->get_m() != B.get_m())
+	if(A.get_m() != B.get_m() || A.get_n() != B.get_n() || this->get_n() != A.get_n() || this->get_m() != B.get_m())
 	{
 		return ;
 	}
@@ -127,7 +127,7 @@ void Matrix::addition(const Matrix& A, const Matrix& B)
 
 void Matrix::subtraction(const Matrix& A, const Matrix& B)
 {
-	if(A.get_m() != B.get_m()&& A.get_n() != B.get_n() && this->get_n() != A.get_n()&&this->get_m() != B.get_m())
+	if(A.get_m() != B.get_m() || A.get_n() != B.get_n() || this->get_n() != A.get_n() || this->get_m() != B.get_m())
 	{
 		return ;
 	}
