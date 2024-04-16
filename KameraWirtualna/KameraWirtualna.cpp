@@ -22,6 +22,50 @@ int height = 800;
 struct Point {
     double x, y, z;
 };
+
+double dotProduct(vector<double> &A, vector<double> &B)
+{
+    double result = 0.0;
+    for(int i = 0; i< A.size(); i++)
+    {
+        result+=A[i]*B[i];
+    }
+    return result;
+}
+
+vector<double> calculateColor(vector<double> &initialColor, double ambient, vector<double> &normal, vector<double> &lightPosition)
+{
+    vector<double> color(3);
+    vector<double> ambientColor(3);
+    vector<double> diffusionColor(3);
+    for(int i = 0 ; i< 3; i++)
+    {
+        ambientColor[i] = initialColor[i] * ambient;
+    }
+    for(int i = 0 ; i< 3; i++)
+    {
+        diffusionColor[i] = initialColor[i] * dotProduct(normal, lightPosition);
+        if(diffusionColor[i] < 0)
+        {
+            diffusionColor[i] = 0;
+        }
+    }
+    
+    for(int i = 0; i< 3; i++)
+    {
+        color[i] = ambientColor[i] + diffusionColor[i];
+    }
+    
+    
+    return color;
+}
+void calcuclateNormal(vector<double> &A,vector<double> &B,vector<double> &wynik)
+{
+    for(int i =0 ; i< A.size();i++)
+    {
+        wynik[i] = (A[i]-B[i])/abs(A[i]-B[i]);
+    }
+}
 int main()
 {
     
@@ -69,6 +113,7 @@ int main()
             colors[j] = f->getWallCollor(i);
         }
     }
+    sf::Vertex *points = new sf::Vertex[360*180];
    
     while (window.isOpen())
     {
@@ -154,19 +199,41 @@ int main()
             angle = angle<=89? angle: 89; 
             //scale+= 1;
         }
-        sf::Vertex point(sf::Vector2f(20, 20), sf::Color::Blue);
+      
+        
         sf::CircleShape shape(50);
         shape.setPosition(sf::Vector2f(100, 100));
         shape.setFillColor(sf::Color(150, 50, 250));
-
+        int radius = 100;
+        vector<double> initialColor = {0.0, 0.0, 255.0};
+        vector<double> lightSource = {0,0,0};
+        
+        for(int theta = 0; theta < 360; theta++)
+        {
+            for(int phi = 0; phi < 180; phi++)
+            {
+                vector<double> sphereCenter = {width/2.0, height/2.0, 0.0};
+                double x = radius * sin(theta/180.0 * M_PI) * cos(phi/180.0 * M_PI ) ;
+                double y = radius* sin(theta/180.0 * M_PI) * sin(phi/180.0 * M_PI);
+                double z = radius * cos(theta/180.0 * M_PI);
+                vector<double> pointCoordinates = {x, y, z};
+                vector<double> normal(3);
+                calcuclateNormal(pointCoordinates, sphereCenter, normal);
+                vector<double> lightDirection(3);
+                calcuclateNormal(pointCoordinates, lightSource, lightDirection);
+               
+                vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection);
+                points[180*theta + phi] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], y + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
+            }
+        }
+        
         //shape.setOutlineThickness(10);
         
-        window.draw(&point, 1, sf::Points);
-        window.draw(shape);
+        window.draw(points, 180*360, sf::Points);
+
         
         window.display();
         sf::sleep(sf::microseconds(1000));
     }
-
     return 0;
 }
