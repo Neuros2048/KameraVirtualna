@@ -1,44 +1,47 @@
-﻿  KameraWirtualna.cpp
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         with
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         [
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:             T=float
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         ]
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         with
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         [
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:             T=float
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         ]
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         with
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         [
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:             _Ty=double
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         ]
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         with
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         [
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:             _Ty=double
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         ]
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         with
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         [
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:             _Ty=double
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         ]
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,21): warning C4101: "y2": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,15): warning C4101: "y1": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,33): warning C4101: "s2": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,12): warning C4101: "x1": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,27): warning C4101: "z2": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(124,10): warning C4101: "p": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,30): warning C4101: "s1": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,22): warning C4101: "p3": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,13): warning C4101: "p1": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,36): warning C4101: "s3": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,26): warning C4101: "p4": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,18): warning C4101: "p2": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,42): warning C4101: "ct": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(141,18): warning C4101: "root": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,24): warning C4101: "z1": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,18): warning C4101: "x2": lokalna zmienna, do której nie istnieje odwołanie
-C:\studia\GK\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,39): warning C4101: "s4": lokalna zmienna, do której nie istnieje odwołanie
-  KameraWirtualna.vcxproj -> C:\studia\GK\KameraVirtualna\KameraWirtualna\x64\Debug\KameraWirtualna.exe
+﻿  figura.cpp
+  KameraWirtualna.cpp
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         with
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         [
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:             T=float
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,90): warning C4244:         ]
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         with
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         [
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:             T=float
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,69): warning C4244:         ]
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         with
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         [
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:             _Ty=double
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,147): warning C4244:         ]
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         with
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         [
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:             _Ty=double
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,137): warning C4244:         ]
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244: "argument": konwersja z "_Ty" do "sf::Uint8", możliwa utrata danych
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         with
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         [
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:             _Ty=double
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(265,127): warning C4244:         ]
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,21): warning C4101: "y2": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,15): warning C4101: "y1": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,33): warning C4101: "s2": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,12): warning C4101: "x1": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,27): warning C4101: "z2": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(124,10): warning C4101: "p": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,30): warning C4101: "s1": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,22): warning C4101: "p3": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,13): warning C4101: "p1": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,36): warning C4101: "s3": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,26): warning C4101: "p4": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(125,18): warning C4101: "p2": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,42): warning C4101: "ct": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(141,18): warning C4101: "root": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,24): warning C4101: "z1": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,18): warning C4101: "x2": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\KameraWirtualna.cpp(123,39): warning C4101: "s4": lokalna zmienna, do której nie istnieje odwołanie
+  Matrix.cpp
+  Generowanie kodu...
+  KameraWirtualna.vcxproj -> C:\Users\Jakub Wysocki\Desktop\grafika\KameraVirtualna\KameraWirtualna\x64\Debug\KameraWirtualna.exe

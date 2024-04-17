@@ -48,7 +48,7 @@ vector<double> calculateColor(vector<double> &initialColor, double ambient, vect
         diffusionColor[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0);
         if (diffusionColor[i] < 0.0) {
             diffusionColor[i] = 0.0;
-            cout << diffusionColor[i] << '\n';
+            //cout << diffusionColor[i] << '\n';
         }
     }
     for (int i = 0; i < 3; i++)
@@ -60,7 +60,7 @@ vector<double> calculateColor(vector<double> &initialColor, double ambient, vect
     {
         specular[i] = std::pow(std::max(dotProduct(reflectionDirection, viewDirection), 0.0), 2) * 255;
         if (specular[i] > 20 && i !=2) {
-            cout << specular[i] << " ";
+            //cout << specular[i] << " ";
         }
     }
 
@@ -262,7 +262,16 @@ int main()
                 vector<double> viewDirection(3);
                 calcuclateNormal(pointCoordinates, viewerPosition, viewDirection);
                 vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection);
-                points[180*theta + phi] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], y + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
+                if(dotProduct(viewDirection ,normal)>=0)
+                {
+                    points[180*theta + phi] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], y + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
+                }else
+                {
+                    cout << "hej "<<180*theta + phi ;
+                    points[180*theta + phi] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
+                }
+                
+                
             }
         }
         
