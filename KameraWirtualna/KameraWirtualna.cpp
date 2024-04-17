@@ -28,6 +28,7 @@ double dotProduct(vector<double> &A, vector<double> &B)
     double result = 0.0;
     for(int i = 0; i< A.size(); i++)
     {
+        
         result+=A[i]*B[i];
     }
     return result;
@@ -149,7 +150,7 @@ int main()
             colors[j] = f->getWallCollor(i);
         }
     }
-    sf::Vertex *points = new sf::Vertex[360*180];
+    sf::Vertex *points = new sf::Vertex[360*180 *4];
    
     while (window.isOpen())
     {
@@ -244,15 +245,17 @@ int main()
         vector<double> initialColor = {0.0, 0.0, 255.0};
         vector<double> lightSource = {0,-50,0};
         vector<double> viewerPosition = { width / 2.0, height / 2.0, -100 };
-        for(int theta = 0; theta < 360; theta++)
+        for(int thetaB = 0; thetaB < 360*2; thetaB++)
         {
-            for(int phi = 0; phi < 180; phi++)
+            for(int phiB = 0; phiB < 180*2; phiB++)
             {
+                double theta = thetaB/2.0;
+                double phi = phiB/2.0;
                 vector<double> sphereCenter = {width/2.0, height/2.0, 0.0};
                 double x = radius * sin(theta/180.0 * M_PI) * cos(phi/180.0 * M_PI ) ;
                 double y = radius* sin(theta/180.0 * M_PI) * sin(phi/180.0 * M_PI);
                 double z = radius * cos(theta/180.0 * M_PI);
-                vector<double> pointCoordinates = {x, y, z};
+                vector<double> pointCoordinates = {x, z, y};
                 vector<double> normal(3);
                 calcuclateNormal(pointCoordinates, sphereCenter, normal);
                 vector<double> lightDirection(3);
@@ -264,24 +267,23 @@ int main()
                 vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection);
                 if(dotProduct(viewDirection ,normal)>=0)
                 {
-                    points[180*theta + phi] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], y + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
+                    points[ 180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], z + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
                 }else
                 {
-                    cout << "hej "<<180*theta + phi ;
-                    points[180*theta + phi] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
+                    cout << " hesj" << endl;
+                    points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
                 }
-                
-                
             }
         }
         
         //shape.setOutlineThickness(10);
         
-        window.draw(points, 180*360, sf::Points);
+        window.draw(points, 180*360*4, sf::Points);
 
         
         window.display();
         sf::sleep(sf::microseconds(1000));
+        
     }
     return 0;
 }
