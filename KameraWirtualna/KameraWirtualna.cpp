@@ -28,13 +28,12 @@ double dotProduct(vector<double> &A, vector<double> &B)
     double result = 0.0;
     for(int i = 0; i< A.size(); i++)
     {
-        
         result+=A[i]*B[i];
     }
     return result;
 }
 
-vector<double> calculateColor(vector<double> &initialColor, double ambient, vector<double> &normal, vector<double> &lightPosition, vector<double> &reflectionDirection, vector<double>& viewDirection)
+vector<double> calculateColor(vector<double> &initialColor, double ambientCoe, vector<double> &normal, vector<double> &lightPosition, vector<double> &reflectionDirection, vector<double>& viewDirection, double diffCoe, double specCoe, int n)
 {
     vector<double> color(3);
     vector<double> ambientColor(3);
@@ -42,35 +41,20 @@ vector<double> calculateColor(vector<double> &initialColor, double ambient, vect
     vector<double> specular(3);
     for(int i = 0 ; i< 3; i++)
     {
-        ambientColor[i] = initialColor[i] * ambient;
+        ambientColor[i] = initialColor[i] * ambientCoe;
     }
     for(int i = 0 ; i< 3; i++)
     {
-        diffusionColor[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0);
-        if (diffusionColor[i] < 0.0) {
-            diffusionColor[i] = 0.0;
-            //cout << diffusionColor[i] << '\n';
-        }
+        diffusionColor[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0) * diffCoe;
     }
-    for (int i = 0; i < 3; i++)
-    {
-        diffusionColor[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0);
 
-    }
-    for (int i = 0; i < 3; i++)
-    {
-        specular[i] = std::pow(std::max(dotProduct(reflectionDirection, viewDirection), 0.0), 2) * 255;
-        if (specular[i] > 20 && i !=2) {
-            //cout << specular[i] << " ";
-        }
-    }
+    double specularColor = std::pow(std::max(dotProduct(reflectionDirection, viewDirection), 0.0), n) * 255 * specCoe;
 
     for(int i = 0; i< 3; i++)
     {
-        color[i] = ambientColor[i] + diffusionColor[i] + specular[i];
+        color[i] = std::min(ambientColor[i] + diffusionColor[i] + specularColor, 255.0);
+        
     }
-    
-    
     return color;
 }
 void calcuclateNormal(vector<double> &A,vector<double> &B,vector<double> &wynik)
@@ -94,9 +78,8 @@ void subtractVectors(vector<double>& A, vector<double>& B, vector<double>& wynik
 }
 void calcuclateReflection(vector<double>& normal, vector<double>& lightDirection, vector<double>& reflectionDirection) {
     double product = dotProduct(normal, lightDirection);
-    product *= 2;
     for (int i = 0; i < 3; i++) {
-        reflectionDirection[i] = product * normal[i] - lightDirection[i];
+        reflectionDirection[i] = 2 * product * normal[i] - lightDirection[i];
     }
     double length = std::sqrt(reflectionDirection[0] * reflectionDirection[0] + reflectionDirection[1] * reflectionDirection[1] + reflectionDirection[2] * reflectionDirection[2]);
     for (int i = 0; i < 3; i++) {
@@ -140,6 +123,17 @@ int main()
     vector<int*> walls(figury.size()*6);
     vector<sf::Color> colors(figury.size()*6);
     wieszcholek* root;
+
+    /////////////////////////////
+    double lightSpeed = 100;
+    int radius = 100;
+    vector<double> initialColor = { 0.0, 0.0, 255.0 };
+    vector<double> viewerPosition = { width / 2.0, height / 2.0, 100 };
+    vector<double> sphereCenter = { width / 2.0, height / 2.0, 0.0 };
+    vector<double> lightSource = { 0,0, 100 };
+    double diff = 1;
+    double spec = 1;
+    int n = 8;
     int j = 0;
     for(auto f : figury)
     {
@@ -176,24 +170,30 @@ int main()
             revers_transformation.multiplication(opertion,last);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
-            last.swap(revers_transformation);
+            /*last.swap(revers_transformation);
             opertion.set_matrix_4_to(obrotZprawo,0.1);
-            revers_transformation.multiplication(opertion,last);
+            revers_transformation.multiplication(opertion,last);*/
+            lightSource[1] -= lightSpeed;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
-            last.swap(revers_transformation);
+            /*last.swap(revers_transformation);
             opertion.set_matrix_4_to(obrotZlewo,0.1);
-            revers_transformation.multiplication(opertion,last);
+            revers_transformation.multiplication(opertion,last);*/
+            lightSource[1] += lightSpeed;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            last.swap(revers_transformation);
+            /*last.swap(revers_transformation);
             opertion.set_matrix_4_to(obrotPrawo,0.1);
-            revers_transformation.multiplication(opertion,last);
+            revers_transformation.multiplication(opertion,last);*/
+            lightSource[0] += lightSpeed;
+
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            last.swap(revers_transformation);
+            /*last.swap(revers_transformation);
             opertion.set_matrix_4_to(obrotLewo,0.1);
-            revers_transformation.multiplication(opertion,last);
+            revers_transformation.multiplication(opertion,last);*/
+            lightSource[0] -= lightSpeed;
+
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
             last.swap(revers_transformation);
@@ -216,14 +216,16 @@ int main()
             revers_transformation.multiplication(opertion,last);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-            last.swap(revers_transformation);
-            opertion.set_matrix_4_to(ruchtyl,1);
-            revers_transformation.multiplication(opertion,last);
+            //last.swap(revers_transformation);
+            //opertion.set_matrix_4_to(ruchtyl,1);
+            //revers_transformation.multiplication(opertion,last);
+            lightSource[2] -= lightSpeed;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-            last.swap(revers_transformation);
+            /*last.swap(revers_transformation);
             opertion.set_matrix_4_to(ruchprzod,1);
-            revers_transformation.multiplication(opertion,last);
+            revers_transformation.multiplication(opertion,last);*/
+            lightSource[2] += lightSpeed;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) {
             angle -= 0.1;
@@ -231,48 +233,60 @@ int main()
             //scale-=1;
             //scale = scale < 10? 10: scale;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
-            angle += 0.1;
-            angle = angle<=89? angle: 89; 
-            //scale+= 1;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z)) {
+            initialColor = { 0, 0, 255.0 };
+            diff = 1;
+            spec = 1;
+            n = 8;
         }
-      
-        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X)) {
+            initialColor = { 0, 255.0, 0 };
+            diff = 1;
+            spec = 0;
+            n = 8;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C)) {
+            initialColor = { 255.0, 0, 0 };
+            diff = 0;
+            spec = 1;
+            n = 16;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::V)) {
+            initialColor = { 100.0, 100.0, 200.0};
+            diff = 0.75;
+            spec = 0.3;
+            n = 8;
+        }
         sf::CircleShape shape(50);
         shape.setPosition(sf::Vector2f(100, 100));
         shape.setFillColor(sf::Color(150, 50, 250));
-        int radius = 100;
-        vector<double> initialColor = {0.0, 0.0, 255.0};
-        vector<double> lightSource = {0,-50,0};
-        vector<double> viewerPosition = { width / 2.0, height / 2.0, -100 };
+
         for(int thetaB = 0; thetaB < 360*2; thetaB++)
         {
             for(int phiB = 0; phiB < 180*2; phiB++)
             {
                 double theta = thetaB/2.0;
                 double phi = phiB/2.0;
-                vector<double> sphereCenter = {width/2.0, height/2.0, 0.0};
-                double x = radius * sin(theta/180.0 * M_PI) * cos(phi/180.0 * M_PI ) ;
-                double y = radius* sin(theta/180.0 * M_PI) * sin(phi/180.0 * M_PI);
-                double z = radius * cos(theta/180.0 * M_PI);
-                vector<double> pointCoordinates = {x, z, y};
+                double x = radius * sin(theta/180.0 * M_PI) * cos(phi/180.0 * M_PI ) + sphereCenter[0];
+                double y = radius * cos(theta / 180.0 * M_PI) + sphereCenter[1];
+                double z = radius* sin(theta/180.0 * M_PI) * sin(phi/180.0 * M_PI) + sphereCenter[2];
+                vector<double> pointCoordinates = {x, y, z};
                 vector<double> normal(3);
-                calcuclateNormal(pointCoordinates, sphereCenter, normal);
+                calcuclateNormal(sphereCenter, pointCoordinates, normal);
                 vector<double> lightDirection(3);
-                calcuclateNormal(pointCoordinates, lightSource, lightDirection);
+                calcuclateNormal(lightSource, pointCoordinates, lightDirection);
                 vector<double> reflectionDirection(3);
-                calcuclateReflection(pointCoordinates, viewerPosition, reflectionDirection);
+                calcuclateReflection(normal, lightDirection, reflectionDirection);
                 vector<double> viewDirection(3);
-                calcuclateNormal(pointCoordinates, viewerPosition, viewDirection);
-                vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection);
-                if(dotProduct(viewDirection ,normal)>=0)
-                {
-                    points[ 180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(x + sphereCenter[0], z + sphereCenter[1]), sf::Color(color[0], color[1], color[2]));   
-                }else
-                {
-                    cout << " hesj" << endl;
-                    points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
-                }
+                calcuclateNormal(viewerPosition, pointCoordinates, viewDirection);
+                vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection, diff, spec, n);
+                //if(dotProduct(viewDirection ,normal)>=0)
+                //{
+                points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(x, y), sf::Color(color[0], color[1], color[2]));   
+                //}else
+                //{
+                 //   points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
+                //}
             }
         }
         
