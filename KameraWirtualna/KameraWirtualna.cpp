@@ -32,30 +32,30 @@ double dotProduct(vector<double> &A, vector<double> &B)
     }
     return result;
 }
-
-vector<double> calculateColor(vector<double> &initialColor, double ambientCoe, vector<double> &normal, vector<double> &lightPosition, vector<double> &reflectionDirection, vector<double>& viewDirection, double diffCoe, double specCoe, int n)
+vector<double> ambientColor1(3);
+vector<double> diffusionColor1(3);
+vector<double> specular1(3);
+void calculateColor(vector<double> &initialColor, double ambientCoe, vector<double> &normal, vector<double> &lightPosition, vector<double> &reflectionDirection, vector<double>& viewDirection, double diffCoe, double specCoe, int n,vector<double> &color)
 {
-    vector<double> color(3);
-    vector<double> ambientColor(3);
-    vector<double> diffusionColor(3);
-    vector<double> specular(3);
+   
+    
     for(int i = 0 ; i< 3; i++)
     {
-        ambientColor[i] = initialColor[i] * ambientCoe;
+        ambientColor1[i] = initialColor[i] * ambientCoe;
     }
     for(int i = 0 ; i< 3; i++)
     {
-        diffusionColor[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0) * diffCoe;
+        diffusionColor1[i] = std::max(initialColor[i] * dotProduct(normal, lightPosition), 0.0) * diffCoe;
     }
 
     double specularColor = std::pow(std::max(dotProduct(reflectionDirection, viewDirection), 0.0), n) * 255 * specCoe;
 
     for(int i = 0; i< 3; i++)
     {
-        color[i] = std::min(ambientColor[i] + diffusionColor[i] + specularColor, 255.0);
+        color[i] = std::min(ambientColor1[i] + diffusionColor1[i] + specularColor, 255.0);
         
     }
-    return color;
+    
 }
 void calcuclateNormal(vector<double> &A,vector<double> &B,vector<double> &wynik)
 {
@@ -123,7 +123,13 @@ int main()
     vector<int*> walls(figury.size()*6);
     vector<sf::Color> colors(figury.size()*6);
     wieszcholek* root;
-
+    vector<double> pointCoordinates(3);
+                    
+    vector<double> normal(3);
+    vector<double> lightDirection(3);
+    vector<double> reflectionDirection(3);
+    vector<double> viewDirection(3);
+    vector<double> color(3);
     /////////////////////////////
     double lightSpeed = 100;
     int radius = 100;
@@ -144,7 +150,7 @@ int main()
             colors[j] = f->getWallCollor(i);
         }
     }
-    sf::Vertex *points = new sf::Vertex[360*180 *4];
+    sf::Vertex *points = new sf::Vertex[360*180*4];
    
     while (window.isOpen())
     {
@@ -270,23 +276,23 @@ int main()
                 double x = radius * sin(theta/180.0 * M_PI) * cos(phi/180.0 * M_PI ) + sphereCenter[0];
                 double y = radius * cos(theta / 180.0 * M_PI) + sphereCenter[1];
                 double z = radius* sin(theta/180.0 * M_PI) * sin(phi/180.0 * M_PI) + sphereCenter[2];
-                vector<double> pointCoordinates = {x, y, z};
-                vector<double> normal(3);
+                if(z < 0)
+                {
+                    pointCoordinates[0] = x;
+                    pointCoordinates[1] = y;
+                    pointCoordinates[2] = z;
+               
                 calcuclateNormal(sphereCenter, pointCoordinates, normal);
-                vector<double> lightDirection(3);
                 calcuclateNormal(lightSource, pointCoordinates, lightDirection);
-                vector<double> reflectionDirection(3);
                 calcuclateReflection(normal, lightDirection, reflectionDirection);
-                vector<double> viewDirection(3);
                 calcuclateNormal(viewerPosition, pointCoordinates, viewDirection);
-                vector<double> color = calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection, diff, spec, n);
-                //if(dotProduct(viewDirection ,normal)>=0)
-                //{
+                calculateColor(initialColor, 0.2, normal, lightDirection, reflectionDirection, viewDirection, diff, spec, n,color);
+                
                 points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(x, y), sf::Color(color[0], color[1], color[2]));   
-                //}else
-                //{
-                 //   points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
-                //}
+                }else
+                {
+                    points[180*2*thetaB + phiB] = sf::Vertex(sf::Vector2f(0, 0), sf::Color::Black);   
+                }
             }
         }
         
